@@ -5,6 +5,9 @@ define('_IN_APP_', 1);
 
 // Menyisipkan file connection.php
 include 'connection.php';
+include 'functions.php';
+
+must_unauthenticated();
 
 if (isset($_POST['login'])) {
     $username = $_POST['username'];

@@ -5,9 +5,24 @@ defined('_IN_APP_') or die('access denied !'); // keep silent
  * Unauntenticated user must login first !
  */
 function must_authenticated() {
-    if (! isset($_SESSION['is_login']) && 
-        ! isset($_SESSION['username'])) {
+    if ( 
+        ! isset($_SESSION['is_login']) && 
+        ! isset($_SESSION['username'])
+    ) {
         header('location: ' . SITE_URL . '/login.php');
+        exit(0);
+    }
+}
+
+/**
+ * Authenticated user cannot login again !
+ */
+function must_unauthenticated() {
+    if (
+        isset($_SESSION['is_login']) &&
+        isset($_SESSION['username'])
+    ) {
+        header('location: ' . SITE_URL);
         exit(0);
     }
 }

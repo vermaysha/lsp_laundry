@@ -11,3 +11,4 @@ include 'functions.php';
 // User must authenticated !
 must_authenticated();
 
+require 'views/view_home.php';
