@@ -27,9 +27,23 @@ function must_unauthenticated() {
     }
 }
 
-/**
- * Get the authenticated user role
- */
-function get_auth_role() {
-    // TODO(Ashary): Make the functions block code 
+function have_access($feature) {
+    $permisions = [
+        'admin' => [
+            'manage_laundry',
+            'manage_customer',
+            'manage_transaction',
+            'print_order',
+            'print_customer_card',
+            'generate_report'
+        ],
+        'pelanggan' => [
+            'check_data_laundry',
+            'check_status_laundry',
+            'check_detail_laundry',
+            'generate_report'
+        ]
+    ];
+
+    return in_array($feature, $permisions[$_SESSION['role']], true);
 }
