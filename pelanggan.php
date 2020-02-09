@@ -39,8 +39,6 @@ switch (isset($_GET['action']) ? $_GET['action'] : null) {
                     exit(0);
                 }
             }
-
-            exit;
         }
         require 'views/new_pelanggan.php';
     break;
@@ -53,19 +51,28 @@ switch (isset($_GET['action']) ? $_GET['action'] : null) {
             $gender = $_POST['gender'];
             $address = $_POST['address'];
 
-            $stmt = $db->prepare("UPDATE `users` SET `username` = ?, `fullname` = ?, `email` = ?, `phone` = ?, `gender` = ?, `address` = ? WHERE `id_user` = ?");
-            $id = $_GET['id'];
-            $stmt->bind_param('sssssss', $username, $fullname, $email, $phone, $gender, $address, $id);
-            if ($stmt->execute()) {
-                header('location: ' . SITE_URL . '/pelanggan.php?status=success-edited-cust');
-                exit(0);
-            }
-            // TODO(ashary): Create feature update password
+            $password = $_POST['password'];
+            $repassword = $_POST['repassword'];
 
-            exit;
+            if ($password !== $repassword) {
+                $error = 'Kata sandi harus sama';
+            } else {
+                $stmt = $db->prepare("UPDATE `users` SET `username` = ?, `fullname` = ?, `email` = ?, `phone` = ?, `gender` = ?, `address` = ? WHERE `id_user` = ?");
+                $id = $_GET['id'];
+                $stmt->bind_param('sssssss', $username, $fullname, $email, $phone, $gender, $address, $id);
+                // TODO(ashary): Create feature update password
+                if ($stmt->execute()) {
+                    header('location: ' . SITE_URL . '/pelanggan.php?status=success-edited-cust');
+                    exit(0);
+                }
+            }
         }
 
-        $result = $db->query("SELECT * FROM `users` WHERE `role` = 'pelanggan' ORDER BY `id_user` ASC");
+        $id_user = $_GET['id'];
+        $stmt = $db->prepare("SELECT * FROM `users` WHERE `role` = 'pelanggan' AND `id_user` = ? ORDER BY `id_user` ASC");
+        $stmt->bind_param('s', $id_user);
+        $stmt->execute();
+        $result = $stmt->get_result();
         $customer = $result->fetch_assoc();
         require 'views/edit_pelanggan.php';
     break;

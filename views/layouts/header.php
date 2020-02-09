@@ -1,6 +1,7 @@
 <?php
 defined('_IN_APP_') or die('access denied !'); // keep silent
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -24,11 +25,14 @@ defined('_IN_APP_') or die('access denied !'); // keep silent
     <aside class="sidebar">
         <nav class="nav">
             <ul>
-                <li><a href="<?php echo SITE_URL; ?>">Data Laundry</a></li>
-                <li><a href="<?php echo SITE_URL; ?>">Data Pelanggan</a></li>
-                <li><a href="<?php echo SITE_URL; ?>">Transaksi</a></li>
-                <li><a href="<?php echo SITE_URL; ?>">Cetak Nota Order</a></li>
-                <li><a href="<?php echo SITE_URL; ?>">Generate Laporan</a></li>
+                <?php if ($_SESSION['role'] == 'admin') { ?>
+                    <li><a href="<?php echo SITE_URL; ?>/pelanggan.php">Data Pelanggan</a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/transaksi.php">Transaksi</a></li>
+                    <li><a href="<?php echo SITE_URL; ?>/print-nota-order.php">Cetak Nota Order</a></li>
+                <?php } else { ?>
+                    <li><a href="<?php echo SITE_URL; ?>/cek-laundry.php">Cek Laundry</a></li>
+                <?php } ?>
+                <li><a href="<?php echo SITE_URL; ?>/generate-report.php">Generate Laporan</a></li>
             </ul>
         </nav>
     </aside>

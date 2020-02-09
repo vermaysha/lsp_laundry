@@ -4,9 +4,9 @@ require 'layouts/header.php';
 ?>
 <div class="content">
     <a href="<?php echo SITE_URL; ?>/pelanggan.php?action=new">Tambah Pelanggan</a>
-    <?php if (isset($success)):?>
-        <p><strong>Sukses !</strong> <?php echo $success;?></p>
-    <?php endif;?>
+    <?php if (isset($success)) : ?>
+        <p><strong>Sukses !</strong> <?php echo $success; ?></p>
+    <?php endif; ?>
     <table border="1" style="width: 100%">
         <tr>
             <th>#</th>
@@ -33,10 +33,9 @@ require 'layouts/header.php';
         endforeach; ?>
         <tr>
             <th>#</th>
-            <th>Nama lengkap</th>
-            <th>Nama pengguna</th>
-            <th>Alamat</th>
-            <th>Jenis Kelamin</th>
+            <th>Nama Pemilik</th>
+            <th>Tanggal Transaksi</th>
+            <th>Keterangan</th>
             <th>Action</th>
         </tr>
     </table>
