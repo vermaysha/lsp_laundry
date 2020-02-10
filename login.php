@@ -13,7 +13,7 @@ if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $plain_pass = $_POST['password'];
 
-    $sql = "SELECT `password`,`role` FROM `users` WHERE `username` = ?";
+    $sql = "SELECT * FROM `users` WHERE `username` = ?";
     $stmt = $db->prepare($sql);
     $stmt->bind_param('s', $username);
     $stmt->execute();
@@ -28,6 +28,7 @@ if (isset($_POST['login'])) {
         $_SESSION['is_login'] = true;
         $_SESSION['username'] = $username;
         $_SESSION['role'] = $user->role;
+        $_SESSION['id_user'] = $user->id_user;
         header('location: ' . SITE_URL);
         exit(0);
     }
